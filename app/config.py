@@ -9,6 +9,14 @@ class Settings(BaseSettings):
     BASE_URL: str = "http://localhost:8000"
     SHORT_CODE_LENGTH: int = 6
 
+    # Google OAuth2
+    GOOGLE_CLIENT_ID: str = ""
+
+    # JWT
+    JWT_SECRET_KEY: str = "change-me-in-production"
+    JWT_ALGORITHM: str = "HS256"
+    JWT_EXPIRE_MINUTES: int = 1440  # 24 hours
+
     class Config:
         env_file = ".env"
 

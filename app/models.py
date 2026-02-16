@@ -17,3 +17,15 @@ class URL(Base):
     original_url = Column(String, nullable=False)
     clicks = Column(Integer, default=0)
     created_at = Column(DateTime, default=get_utcnow)
+
+
+class User(Base):
+    """SQLAlchemy model for authenticated users."""
+
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    name = Column(String, nullable=True)
+    picture = Column(String, nullable=True)
+    created_at = Column(DateTime, default=get_utcnow)

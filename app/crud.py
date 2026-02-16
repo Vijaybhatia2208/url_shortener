@@ -1,5 +1,6 @@
 import string
 import random
+from typing import Optional
 from sqlalchemy.orm import Session
 from app.models import URL
 from app.schemas import URLCreate
@@ -38,7 +39,7 @@ def create_short_url(db: Session, url: URLCreate) -> URL:
     return db_url
 
 
-def get_url_by_code(db: Session, short_code: str) -> URL | None:
+def get_url_by_code(db: Session, short_code: str) -> Optional[URL]:
     """Retrieve a URL by its short code."""
     return db.query(URL).filter(URL.short_code == short_code).first()
 

@@ -2,7 +2,7 @@
 
 ## Phase 1: Core URL Shortener
 
-- [ ] **Task 6 — Main App & Run**
+- [x] **Task 6 — Main App & Run**
   - Create `app/main.py` — FastAPI app, lifespan (create tables), CORS, include router
   - Test locally: create, redirect, info endpoints via Swagger UI
 
@@ -10,7 +10,7 @@
 
 ## Phase 2: Second Brain (Bookmark Manager)
 
-- [ ] **Task 7 — User Model & Google Auth**
+- [x] **Task 7 — User Model & Google Auth**
   - Create `User` model (id, email, name, picture, created_at)
   - Add Google OAuth2 sign-in (token verification, JWT session)
   - Auth middleware / dependency for protected routes
