@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from app.database import engine, Base
-from app.routers import url, auth
+from app.routers import url, auth, bookmarks
 
 
 @asynccontextmanager
@@ -31,9 +31,10 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-# Include routers
-app.include_router(url.router)
+# Include routers (url router LAST — it has a catch-all /{short_code} route)
 app.include_router(auth.router)
+app.include_router(bookmarks.router)
+app.include_router(url.router)
 
 
 @app.get("/")

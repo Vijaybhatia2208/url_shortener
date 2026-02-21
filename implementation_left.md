@@ -15,17 +15,17 @@
   - Add Google OAuth2 sign-in (token verification, JWT session)
   - Auth middleware / dependency for protected routes
 
-- [ ] **Task 8 — Bookmark Model & Schemas**
+- [x] **Task 8 — Bookmark Model & Schemas**
   - Create `Bookmark` model (id, user_id, url, title, description, tags, created_at)
   - Pydantic schemas for bookmark CRUD
 
-- [ ] **Task 9 — Bookmark API Routes**
+- [x] **Task 9 — Bookmark API Routes**
   - `POST /bookmarks` — save a bookmark (with tags, notes)
   - `GET /bookmarks` — list user's bookmarks (with search/filter)
   - `PUT /bookmarks/{id}` — update bookmark
   - `DELETE /bookmarks/{id}` — delete bookmark
 
-- [ ] **Task 10 — Link Shortened URLs to User**
+- [x] **Task 10 — Link Shortened URLs to User**
   - Add optional `user_id` FK to URL model
   - If logged in, auto-save shortened URLs to user's account
   - `GET /my-urls` — list user's shortened URLs

@@ -1,10 +1,14 @@
+from typing import Optional
+
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from app.database import get_db
+from app.models import User
 from app.schemas import URLCreate, URLResponse
 from app.config import get_settings
-from app.crud import create_short_url, get_url_by_code, increment_clicks
+from app.crud import create_short_url, get_url_by_code, increment_clicks, get_urls_by_user
+from app.dependencies import get_current_user, get_optional_user
 
 
 router = APIRouter()
@@ -19,11 +23,15 @@ def get_full_url(short_code: str) -> str:
 
 
 @router.post("/shorten", response_model=URLResponse)
-def shorten_url(url: URLCreate, db: Session = Depends(get_db)):
-    """Creates a new short URL."""
-    db_url = create_short_url(db, url)
+def shorten_url(
+    url: URLCreate,
+    db: Session = Depends(get_db),
+    current_user: Optional[User] = Depends(get_optional_user),
+):
+    """Creates a new short URL. If authenticated, the URL is linked to the user."""
+    user_id = current_user.id if current_user else None
+    db_url = create_short_url(db, url, user_id=user_id)
     
-    # We need to construct the URLResponse
     return URLResponse(
         original_url=db_url.original_url,
         short_code=db_url.short_code,
@@ -31,6 +39,25 @@ def shorten_url(url: URLCreate, db: Session = Depends(get_db)):
         clicks=db_url.clicks,
         created_at=db_url.created_at
     )
+
+
+@router.get("/my-urls", response_model=list[URLResponse])
+def list_my_urls(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """List all shortened URLs created by the authenticated user."""
+    urls = get_urls_by_user(db, current_user.id)
+    return [
+        URLResponse(
+            original_url=u.original_url,
+            short_code=u.short_code,
+            short_url=get_full_url(u.short_code),
+            clicks=u.clicks,
+            created_at=u.created_at,
+        )
+        for u in urls
+    ]
 
 
 @router.get("/{short_code}")
