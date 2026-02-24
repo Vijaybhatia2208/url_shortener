@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables / .env file."""
 
     DATABASE_URL: str = "sqlite:///./url_shortener.db"
-    BASE_URL: str = "http://localhost:8000"
+    FRONTEND_URL: str = "http://localhost:3000"
     SHORT_CODE_LENGTH: int = 6
 
     # Google OAuth2

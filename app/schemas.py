@@ -24,6 +24,11 @@ class URLResponse(URLBase):
         from_attributes = True  # Allows Pydantic to read from SQLAlchemy ORM models
 
 
+class DestinationResponse(BaseModel):
+    """Schema returned by redirection endpoint to tell frontend where to navigate."""
+    original_url: str
+
+
 # ── Auth Schemas ─────────────────────────────────────────────
 
 

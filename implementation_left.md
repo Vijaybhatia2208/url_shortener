@@ -34,7 +34,7 @@
 
 ## Phase 3: Deployment
 
-- [ ] **Task 11 — Render Deployment**
+- [x] **Task 11 — Render Deployment**
   - Create `render.yaml` blueprint
   - Add `README.md` with setup & deploy instructions
   - Deploy and verify on Render
